@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4f6f9; /* warna abu muda khas AdminLTE */
+}
+
+.register-box {
+  width: 360px;
+}
+
+@media (max-width: 400px) {
+  .register-box {
+    width: 90%;
+  }
+}

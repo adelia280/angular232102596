@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4f6f9;
+}
+
+.login-box {
+  width: 360px;
+}
+
+@media (max-width: 400px) {
+  .login-box {
+    width: 90%;
+  }
+}
