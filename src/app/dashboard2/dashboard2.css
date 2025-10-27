@@ -1,0 +1,272 @@
+/* === Layout Wrapper === */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+/* === Content Wrapper === */
+.content-wrapper {
+  flex: 1;
+  background-color: #f4f6f9;
+  padding: 1rem;
+}
+
+.content-header {
+  padding: 1rem 0;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 1rem;
+}
+
+/* === Breadcrumb === */
+.breadcrumb {
+  background: transparent;
+  margin-bottom: 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "›";
+}
+
+/* === Info Boxes === */
+.info-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  transition: transform 0.2s ease;
+}
+
+.info-box:hover {
+  transform: translateY(-3px);
+}
+
+.info-box-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+  height: 70px;
+  font-size: 1.75rem;
+  color: #fff;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.info-box-content {
+  flex: 1;
+  padding: 0.5rem 1rem;
+}
+
+.info-box-text {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #555;
+}
+
+.info-box-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* === Background color helpers === */
+.bg-info { background-color: #17a2b8 !important; }
+.bg-danger { background-color: #dc3545 !important; }
+.bg-success { background-color: #28a745 !important; }
+.bg-warning { background-color: #ffc107 !important; }
+
+/* === Cards === */
+.card {
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.card-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+  background: #fff;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
+  color: #333;
+}
+
+.card-tools .btn {
+  color: #6c757d;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-footer {
+  padding: 0.75rem 1rem;
+  background: #fafafa;
+  border-top: 1px solid #dee2e6;
+}
+
+/* === Progress Bars === */
+.progress {
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+  height: 8px;
+  overflow: hidden;
+  margin-top: 0.25rem;
+}
+
+.progress-bar {
+  height: 8px;
+  border-radius: 0.25rem;
+}
+
+/* === Description Blocks === */
+.description-block {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.description-header {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+}
+
+.description-text {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.border-right {
+  border-right: 1px solid #dee2e6;
+}
+
+/* === Direct Chat Box === */
+.direct-chat {
+  position: relative;
+}
+
+.direct-chat-messages {
+  height: 250px;
+  overflow-y: auto;
+  padding: 10px;
+  background: #f8f9fa;
+}
+
+.direct-chat-msg {
+  margin-bottom: 10px;
+}
+
+.direct-chat-text {
+  background: #fff;
+  border-radius: 0.3rem;
+  padding: 8px 12px;
+  display: inline-block;
+  position: relative;
+  max-width: 75%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.direct-chat-msg.right .direct-chat-text {
+  background: #ffc107;
+  color: #000;
+  float: right;
+}
+
+/* === Users List === */
+.users-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+}
+
+.users-list li {
+  text-align: center;
+  width: 23%;
+  margin-bottom: 15px;
+}
+
+.users-list img {
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+}
+
+.users-list-name {
+  display: block;
+  font-weight: 600;
+  color: #007bff;
+  margin-top: 5px;
+}
+
+/* === Tables === */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  background: #f1f1f1;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table td, .table th {
+  padding: 8px 12px;
+  border-top: 1px solid #dee2e6;
+}
+
+/* === Product List === */
+.products-list .item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.products-list .product-img img {
+  width: 50px;
+  height: 50px;
+  border-radius: 0.25rem;
+  object-fit: cover;
+}
+
+.products-list .product-info {
+  flex: 1;
+  padding-left: 10px;
+}
+
+.product-title {
+  font-weight: 600;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.product-description {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+/* === Utilities === */
+.text-dark { color: #343a40 !important; }
+.float-right { float: right !important; }
+.float-left { float: left !important; }
+.text-center { text-align: center !important; }
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
