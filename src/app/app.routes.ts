@@ -6,6 +6,7 @@ import { Register } from './register/register';
 import { Admin } from './admin/admin';
 import { Dashboard2 } from './dashboard2/dashboard2';
 import { Dashboard3 } from './dashboard3/dashboard3';
+import { Widgets } from './widgets/widgets';
 
 export const routes: Routes = [
     {path: "", redirectTo: "login", pathMatch: "full"},
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {path: "dashboard3", component: Dashboard3},
     {path: "login", component: LoginComponent},
     {path: "register", component: Register},
+    {path: "widgets", component: Widgets},
     {path: "admin", component: Admin}
 ];
 
