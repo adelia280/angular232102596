@@ -6,9 +6,11 @@ import { Register } from './register/register';
 import { Admin } from './admin/admin';
 import { Dashboard2 } from './dashboard2/dashboard2';
 import { Dashboard3 } from './dashboard3/dashboard3';
-import { Widgets } from './widgets/widgets';
+
 import { ChartJS } from './chart-js/chart-js';
 import { Flot } from './flot/flot';
+import { Mahasiswa } from './mahasiswa/mahasiswa';
+
 
 export const routes: Routes = [
     {path: "", redirectTo: "login", pathMatch: "full"},
@@ -16,8 +18,9 @@ export const routes: Routes = [
     {path: "dashboard2", component: Dashboard2},
     {path: "dashboard3", component: Dashboard3},
     {path: "login", component: LoginComponent},
+    {path: "Mahasiswa", component: Mahasiswa},
     {path: "register", component: Register},
-    {path: "widgets", component: Widgets},
+    
     {path: "chart-js", component: ChartJS},
     {path: "flot", component: Flot},
     {path: "admin", component: Admin}
