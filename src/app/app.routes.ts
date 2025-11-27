@@ -10,15 +10,16 @@ import { Dashboard3 } from './dashboard3/dashboard3';
 import { ChartJS } from './chart-js/chart-js';
 import { Flot } from './flot/flot';
 import { Mahasiswa } from './mahasiswa/mahasiswa';
+import { otentikasiGuard } from './otentikasi-guard';
 
 
 export const routes: Routes = [
     {path: "", redirectTo: "login", pathMatch: "full"},
-    {path: "dashboard", component: Dashboard},
-    {path: "dashboard2", component: Dashboard2},
+    {path: "dashboard", component: Dashboard, canActivate: [otentikasiGuard]},
+    {path: "dashboard2", component: Dashboard2, canActivate: [otentikasiGuard]},
     {path: "dashboard3", component: Dashboard3},
     {path: "login", component: LoginComponent},
-    {path: "Mahasiswa", component: Mahasiswa},
+    {path: "Mahasiswa", component: Mahasiswa, canActivate: [otentikasiGuard]},
     {path: "register", component: Register},
     
     {path: "chart-js", component: ChartJS},
