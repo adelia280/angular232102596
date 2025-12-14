@@ -36,38 +36,42 @@ export class Forex implements AfterViewInit {
     this.bindTable1();
   }
 
- bindTable1(): void {
-  console.log("bindTable1()");
+  bindTable1(): void{
+    console.log("bindTable1()");
 
-  const ratesUrl = "https://api.exchangerate-api.com/v4/latest/USD"; // Data kurs lengkap (tanpa API KEY)
-  const currenciesUrl = "https://openexchangerates.org/api/currencies.json"; // Nama mata uang
+    //URL to fetch exchange rates
+    const ratesUrl = "https://openexchangerates.org/api/latest.json?app_id=f26db85eb713410e87fedf807ea2740c";
 
-  // Ambil daftar nama mata uang dulu
-  this.httpClient.get(currenciesUrl).subscribe((currencies: any) => {
+    //URL to fetch currency names
+    const currenciesUrl = "https://openexchangerates.org/api/currencies.json";
 
-    this.httpClient.get(ratesUrl).subscribe((data: any) => {
-      const rates = data.rates;
-      let index = 1;
+    //Fetch the currency names
+    this.httpClient.get(currenciesUrl).subscribe((currencies: any) => {
+      //Fetch the exchange rates
+      this.httpClient.get(ratesUrl).subscribe((data: any)=> {
+        const rates =data.rates;
+        let index = 1;
 
-      this._table1.clear(); // reset table dulu
+        // Iterate over the rates and add the rows to the table
+        for (const currency in rates){
+          //Get the currency name from the API
+          const currencyName = currencies[currency];
 
-      // Loop semua mata uang
-      for (const code in rates) {
-        const currencyName = currencies[code] ?? "(Nama Tidak Ditemukan)";
-        const rate = rates[code];
+          //Calculate the rate for the spetific currency
+          const rate= rates.IDR / rates[currency];
+          const formatRate = formatCurrency(rate, "en-US", "", currency);
 
-        const formattedRate = formatCurrency(rate, "en-US", "$", code);
+          console.log(`${currency}: ${currencyName} - ${formatRate}`);
 
-        this._table1.row.add([
-          index++,
-          code,
-          currencyName,
-          formattedRate
-        ]);
-      }
+          // Add the row with the index, symbol, currency name, and formatted rate
+          const row= [index++, currency, currencyName, formatRate];
+          this._table1.row.add(row);
+          this._table1.draw(false);
+        }
+        
+      });
 
-      this._table1.draw(false);
-    });
-  });
-}
+    })
+  }
+
 }

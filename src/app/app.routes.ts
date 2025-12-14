@@ -6,13 +6,12 @@ import { Register } from './register/register';
 import { Admin } from './admin/admin';
 import { Dashboard2 } from './dashboard2/dashboard2';
 import { Dashboard3 } from './dashboard3/dashboard3';
-
-import { ChartJS } from './chart-js/chart-js';
 import { Flot } from './flot/flot';
 import { Mahasiswa } from './mahasiswa/mahasiswa';
 import { otentikasiGuard } from './otentikasi-guard';
 import { Logout } from './logout/logout';
 import { Forex } from './forex/forex';
+import { Cuaca } from './cuaca/cuaca';
 
 
 export const routes: Routes = [
@@ -25,9 +24,9 @@ export const routes: Routes = [
     {path: "Mahasiswa", component: Mahasiswa, canActivate: [otentikasiGuard]},
     {path: "register", component: Register},
     
-    {path: "chart-js", component: ChartJS},
     {path: "flot", component: Flot},
     {path: "admin", component: Admin},
+    {path: "cuaca", component: Cuaca},
     {path: "logout", component: Logout}
     
 ];

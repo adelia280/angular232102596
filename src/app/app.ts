@@ -1,7 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { AfterViewInit } from '@angular/core';
-import { Router, NavigationEnd  } from '@angular/router';
+import { Component, signal, AfterViewInit } from '@angular/core';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +7,6 @@ import { Router, NavigationEnd  } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-
 export class App implements AfterViewInit {
   protected readonly title = signal('angular232102596');
 
@@ -20,27 +17,36 @@ export class App implements AfterViewInit {
     const toggleButton = document.querySelector('[data-widget="pushmenu"]');
     const sidebarLinks = document.querySelectorAll('.main-sidebar a.nav-link');
 
-    // Klik tombol buka/tutup sidebar
+    // Toggle sidebar (AdminLTE mobile-safe)
     if (toggleButton) {
       toggleButton.addEventListener('click', (event) => {
         event.preventDefault();
-        body.classList.toggle('sidebar-open');
+
+        if (body.classList.contains('sidebar-open')) {
+          body.classList.remove('sidebar-open');
+          body.classList.add('sidebar-collapse');
+        } else {
+          body.classList.add('sidebar-open');
+          body.classList.remove('sidebar-collapse');
+        }
       });
     }
 
-    // Tutup otomatis jika user klik menu di mobile
+    // Tutup sidebar setelah klik menu (mobile)
     sidebarLinks.forEach(link => {
       link.addEventListener('click', () => {
-        if (window.innerWidth <= 991 && body.classList.contains('sidebar-open')) {
+        if (window.innerWidth <= 991) {
           body.classList.remove('sidebar-open');
+          body.classList.add('sidebar-collapse');
         }
       });
     });
 
-    // Tutup otomatis setiap kali ganti halaman (navigasi router)
+    // Tutup sidebar setiap ganti halaman (mobile)
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && window.innerWidth <= 991) {
         body.classList.remove('sidebar-open');
+        body.classList.add('sidebar-collapse');
       }
     });
   }

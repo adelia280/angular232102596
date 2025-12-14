@@ -55,7 +55,7 @@
           </li>
           <li class="nav-item">
             <a [routerLink]="['/Mahasiswa']" routerLinkActive="router-link-active" class="nav-link {{ moduleName == 'Mahasiswa' ? 'active' : '' }}">
-              <i class="fas fa-graduation-cap"></i>
+              <i class="nav-icon fas fa-graduation-cap"></i>
               <p>
                 Mahasiswa
               </p>
@@ -72,8 +72,15 @@
 
            <li class="nav-item">
                 <a [routerLink]="['/forex']" class="nav-link {{ moduleName == 'forex' ? 'active' : '' }}">
-                  <i class="fas fa-money-bill-alt"></i>
+                  <i class="nav-icon fas fa-money-bill-alt"></i>
                   <p>Forex</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a [routerLink]="['/cuaca']" routerLinkActive="router-link-active" class="nav-link {{ moduleName == 'cuaca' ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-cloud-rain"></i>
+                  <p>Cuaca</p>
                 </a>
               </li>
           
