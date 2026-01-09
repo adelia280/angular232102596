@@ -7,120 +7,153 @@ import { HttpClient } from '@angular/common/http';
 
 declare const $: any;
 declare const moment: any;
+declare const L: any;
 
 @Component({
   selector: 'app-cuaca',
+  standalone: true,
   imports: [Header, Sidebar, Footer, RouterModule],
   templateUrl: './cuaca.html',
   styleUrl: './cuaca.css',
 })
 export class Cuaca implements AfterViewInit {
-  private table1: any;
 
-  constructor(private renderer:Renderer2, private http: HttpClient) {
-    this.renderer.removeClass(document.body, "sidebar-open");
-    this.renderer.addClass(document.body, "sidebar-closed");
+  private table1: any;
+  private map: any;
+
+  cityData: any;
+  currentWeather: any;
+  todayDate: string = '';
+
+  constructor(
+    private renderer: Renderer2,
+    private http: HttpClient
+  ) {
+    this.renderer.removeClass(document.body, 'sidebar-open');
+    this.renderer.addClass(document.body, 'sidebar-closed');
   }
 
   ngAfterViewInit(): void {
-    this.table1 = $("#table1").DataTable({
+    this.table1 = $('#table1').DataTable({
       columnDefs: [
         {
           targets: 0,
-          render: function (data:string) {
-            const waktu = moment(data + " UTC");
-            console.log(waktu);
-
-            const html =
-            waktu.local().format("YYYY-MM-DD") + "<br />" + waktu.local().format("HH:mm") + "WIB";
-
-            return html;
+          render: (data: string) => {
+            const waktu = moment(data + ' UTC');
+            return (
+              waktu.local().format('YYYY-MM-DD') +
+              '<br />' +
+              waktu.local().format('HH:mm') +
+              ' WIB'
+            );
           },
-        }, {
-          targets: [1],
-          render: function (data: string) {
-            return "<img src='" + data + "' style='filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.7));' />";
-          }
-        }, {
-          targets: [2],
-          render: function (data: string) {
-            const array = data.split("||");
-            const cuaca = array[0];
-            const description = array[1];
-            const html = "<strong>" + cuaca + "</strong> <br />" + description;
-
-            return html;
+        },
+        {
+          targets: 1,
+          render: (data: string) => {
+            return `<img src="${data}" style="filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.7));" />`;
+          },
+        },
+        {
+          targets: 2,
+          render: (data: string) => {
+            const [cuaca, description] = data.split('||');
+            return `<strong>${cuaca}</strong><br />${description}`;
           },
         },
       ],
     });
   }
 
-  getData(city:string): void {
+  getData(city: string): void {
+    if (!city) return;
+
     city = encodeURIComponent(city);
 
     this.http
-   .get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=87d3e1cd7b3cad09477aa21ce1c4dfba`)
+      .get<any>(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=87d3e1cd7b3cad09477aa21ce1c4dfba`
+      )
+      .subscribe(
+        (data) => {
+          this.cityData = data.city;
 
+          if (data.list.length > 0) {
+            this.currentWeather = data.list[0];
+            this.todayDate = moment(this.currentWeather.dt_txt + ' UTC')
+              .local()
+              .format('MMM DD, hh:mma');
 
-    .subscribe((data:any) => {
-      let list = data.list;
-      console.log(list);
+            setTimeout(() => {
+              this.initMap(
+                this.cityData.coord.lat,
+                this.cityData.coord.lon
+              );
+            }, 100);
+          }
 
-      this.table1.clear();
+          this.table1.clear();
 
-      list.forEach((element: any) => {
-        const weather = element.weather[0];
-        console.log(weather);
+          data.list.forEach((element: any) => {
+            const weather = element.weather[0];
+            const iconUrl =
+              'https://openweathermap.org/img/wn/' +
+              weather.icon +
+              '@2x.png';
 
-        const iconUrl = "https://openweathermap.org/img/wn/" + weather.icon + "@2x.png";
-        const cuacaDeskripsi = weather.main + "||" + weather.description;
+            const cuacaDeskripsi =
+              weather.main + '||' + weather.description;
 
-        const main = element.main;
-        console.log(main);
+            const tempMin = this.kelvinToCelcius(element.main.temp_min);
+            const tempMax = this.kelvinToCelcius(element.main.temp_max);
+            const temp = `${tempMin}°C - ${tempMax}°C`;
 
-        const tempMin = this.kelvinToCelcius(main.temp_min);
-        console.log({ tempMin});
+            this.table1.row.add([
+              element.dt_txt,
+              iconUrl,
+              cuacaDeskripsi,
+              temp,
+            ]);
+          });
 
-        const tempMax = this.kelvinToCelcius(main.temp_max);
-        console.log({ tempMax});
-
-        const temp = tempMin + "°C - " + tempMax + "°C";
-
-        const row = [element.dt_txt, iconUrl, cuacaDeskripsi, temp];
-
-        this.table1.row.add(row);
-      });
-
-      this.table1.draw(false);
-    }, (error:any) => {
-      alert(error.error.message);
-      this.table1.clear();
-      this.table1.draw(false);
-    });
-
-    }
-
-  kelvinToCelcius(kelvin: any): any{
-    let celcius = kelvin - 273.15;
-    celcius = Math.round(celcius * 100) / 100;
-
-    return celcius;
+          this.table1.draw(false);
+        },
+        (error) => {
+          alert(error.error.message);
+          this.table1.clear().draw(false);
+        }
+      );
   }
 
-  handleEnter(event: any) {
+  private initMap(lat: number, lon: number): void {
+    if (this.map) {
+      this.map.remove();
+    }
+
+    this.map = L.map('map-container').setView([lat, lon], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+    }).addTo(this.map);
+
+    L.marker([lat, lon])
+      .addTo(this.map)
+      .bindPopup(this.cityData.name)
+      .openPopup();
+  }
+
+  kelvinToCelcius(kelvin: number): number {
+    return Math.round((kelvin - 273.15) * 100) / 100;
+  }
+
+  handleEnter(event: any): void {
     const cityName = event.target.value;
 
-    if (cityName == "") {
-      this.table1.clear();
-      this.table1.draw(false);
+    if (!cityName) {
+      this.table1.clear().draw(false);
+      return;
     }
 
     this.getData(cityName);
   }
-
 }
-
-
-
-
