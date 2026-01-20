@@ -1,0 +1,80 @@
+/* =========================
+   LIGHT MODE (DEFAULT)
+   Teks HITAM
+========================= */
+
+.content-wrapper,
+.content-wrapper h1,
+.content-wrapper h2,
+.content-wrapper h5,
+.content-wrapper p,
+.weather-details .detail-item,
+.table,
+.breadcrumb-item,
+.breadcrumb-item a {
+  color: #000000;
+}
+
+.weather-card,
+.card {
+  background-color: #ffffff;
+}
+
+.weather-details i {
+  color: #444;
+}
+
+/* Input */
+input.form-control {
+  color: #000000;
+  background-color: #ffffff;
+}
+
+/* =========================
+   DARK MODE
+   Teks PUTIH
+========================= */
+
+body.dark-mode .content-wrapper,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h5,
+body.dark-mode p,
+body.dark-mode .weather-details .detail-item,
+body.dark-mode .table,
+body.dark-mode .breadcrumb-item,
+body.dark-mode .breadcrumb-item a {
+  color: #ffffff !important;
+}
+
+/* Card */
+body.dark-mode .weather-card,
+body.dark-mode .card {
+  background-color: #1f1f1f !important;
+}
+
+/* Icon detail */
+body.dark-mode .weather-details i {
+  color: #ffffff !important;
+}
+
+/* Table */
+body.dark-mode .table thead th {
+  background-color: #2a2a2a;
+  color: #ffffff;
+}
+
+body.dark-mode .table tbody tr {
+  background-color: #1f1f1f;
+}
+
+/* Input */
+body.dark-mode input.form-control {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+body.dark-mode input.form-control::placeholder {
+  color: #cccccc;
+}
