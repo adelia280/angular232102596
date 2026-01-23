@@ -5,11 +5,11 @@ import { Footer } from '../footer/footer';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-ecommers',
+  selector: 'app-e-commerce',
   imports: [Header, Sidebar, Footer, RouterModule],
-  templateUrl: './ecommers.html',
-  styleUrl: './ecommers.css',
+  templateUrl: './e-commerce.html',
+  styleUrl: './e-commerce.css',
 })
-export class Ecommers {
+export class ECommerce {
 
 }

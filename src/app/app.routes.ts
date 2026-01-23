@@ -12,7 +12,8 @@ import { otentikasiGuard } from './otentikasi-guard';
 import { Logout } from './logout/logout';
 import { Forex } from './forex/forex';
 import { Cuaca } from './cuaca/cuaca';
-import { Ecommers } from './ecommers/ecommers';
+import { ECommerce } from './e-commerce/e-commerce';
+
 
 
 export const routes: Routes = [
@@ -24,7 +25,8 @@ export const routes: Routes = [
     {path: "login", component: LoginComponent},
     {path: "Mahasiswa", component: Mahasiswa, canActivate: [otentikasiGuard]},
     {path: "register", component: Register},
-    {path: "ecommers", component: Ecommers},
+    {path: "e-commerce", component: ECommerce},
+   
     
     {path: "flot", component: Flot},
     {path: "admin", component: Admin},
